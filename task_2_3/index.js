@@ -2,10 +2,20 @@ const formEl = document.querySelector('.promo');
 const inputEl = document.querySelector('.promo__input');
 const messageEl = document.querySelector('.promo__message');
 
-const promocodeObj = {
-    promocode: 'PROM50',
-    gift: 'Скидка 50%'
-};
+const promocodeArr = [
+    {
+        promocode: 'PROM10',
+        gift: 'Скидка 10%'
+    },
+    {
+        promocode: 'PROM50',
+        gift: 'Скидка 50%'
+    },
+    {
+        promocode: 'GIFT',
+        gift: 'Подарок в корзине'
+    }
+];
 
 const COOKIE_NAME = 'promocode';
 const COOKIE_DAYS = 7;
@@ -26,7 +36,8 @@ const saveCookie = (promocode) => {
 };
 
 const applyPromocode = (promocode) => {
-    if (promocode !== promocodeObj.promocode) {
+    const promocodeObj = promocodeArr.find((item) => item.promocode === promocode);
+    if (!promocodeObj) {
         formEl.classList.remove('promo--applied');
         messageEl.textContent = '';
         return false;
